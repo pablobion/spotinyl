@@ -31,43 +31,50 @@ app.get('/login', (req, res) => {
     const state = randomstring.generate(16);
     const scope = 'user-read-private user-read-email';
 
-    res.redirect(`${baseUrlSpotify}/authorize?` +
-    querystring.stringify({
+    res.redirect(`${baseUrlSpotify}/authorize?` + querystring.stringify({
       response_type: 'code',
-      origin: 'http://localhost:3001',
-      client_id: client_id,
-      scope: scope,
-      redirect_uri: redirect_uri,
-      state: state
+      origin: req.headers.host,//'http://localhost:3001',
+      client_id,
+      scope,
+      redirect_uri,
+      state
     }));
 })
 
 app.get('/spotify/callback', async(req, res) => {
     var code = req.query.code || null;
     var state = req.query.state || null;
-    if(code){
-        axios({
-            method: 'post',
-            mode: 'cors',
-            url: `${baseUrlSpotify}/api/token`,
-            params: {
-              grant_type: 'authorization_code',
-              code: code,
-              redirect_uri: redirect_uri
-            },
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded',
-              'Authorization': 'Basic ' + (Buffer.from(client_id + ':' + client_secret).toString('base64'))
-            }
-          })
-          .then((response) => {
-            console.log(response.data);
-            res.redirect('http://localhost:5173/?token=' + response.data.access_token);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-    }  
+
+    if (!code) {
+      res.redirect('/login');
+      return;
+    }
+
+    try {
+      const response = await axios({
+        method: 'post',
+        mode: 'cors',
+        url: `${baseUrlSpotify}/api/token`,
+        params: {
+          grant_type: 'authorization_code',
+          code,
+          redirect_uri
+        },
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Authorization': 'Basic ' + (Buffer.from(`${client_id}:${client_secret}`).toString('base64'))
+        }
+      })
+
+      if(response.status === 200) {
+        res.redirect(`${req.headers.referer}?token=${response.data.access_token}`);
+      }
+      
+    } catch(error){
+      console.log(error);
+    }
+
+  
 })
 
 app.post('/albums', async (req, res) => {

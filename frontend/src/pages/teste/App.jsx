@@ -1,37 +1,28 @@
-import { useState } from 'react'
 
-function App() {
-  const [count, setCount] = useState(0)
+  import React from 'react';
+  import {container, Logocontainer, Logo, Logotitle, Logosubtitle, Spotifyloginbutton } from './App.module.css';   
+  import discoImage from '../../assets/disco.png'
 
-  const getAcessToken = async() => {
-    const respo = fetch('http://localhost:3000/login', {
-      method: 'GET',
-      mode: 'cors'
-    });
-
-    console.log(respo)
+  const loginSpotify = () => {
+    window.location.href = "http://localhost:3000/login";
   }
-
-  return (
-    <div className="App">
-      <div>
+  
+  function App() {
+    return (
+      <div className={container}>
+        <header>
+          <div className={Logocontainer}>
+            <img src={discoImage} className={Logo} alt="logo" />
+            <div>
+              <h1 className={Logotitle}>Vinylify</h1>
+              <p className={Logosubtitle}>Your ultimate vinyl collection organizer.</p>
+            </div>
+          </div>
+          <button onClick={loginSpotify} className={Spotifyloginbutton}>Login with Spotify</button>
+        </header>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <button onClick={() => getAcessToken()}>pegar acess token</button>
-        <a href="http://localhost:3000/login">sign in with facebook</a>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
-}
-
-export default App
+    );
+  }
+  
+  export default App;
+        

@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
+ import {container, boxDiscos} from './Styles.module.scss';
 
+import boxImage from '../../assets/box.png'
 
 function Home() {
     let bearerToken = null;
@@ -22,10 +24,11 @@ function Home() {
     }
 
     return (
-      <>
+      <div className={container}>
         <button onClick={fetchBack}>harrys house</button>
         <h1>asuhsauhs</h1>
-      </>
+        <img src={boxImage} className={boxDiscos} alt="box" />
+      </div>
     )
 }
 
