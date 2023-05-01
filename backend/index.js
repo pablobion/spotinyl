@@ -5,6 +5,9 @@ const cors = require('cors');
 const axios = require('axios');
 const app = express();
 
+
+app.use(express.json());
+
 app.use(cors({
     origin: ['http://localhost:5173', 'http://localhost:3000', 'https://accounts.spotify.com'],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'],
@@ -21,16 +24,17 @@ app.get('/', (req, res) => {
 const client_id = 'cad77317d89d400ca93acc4e05199f35';
 const redirect_uri = 'http://localhost:3000/spotify/callback';
 const client_secret = 'd4297a91bfb84874ad9e4d3d4b62788b';
+const baseUrlSpotify = 'https://accounts.spotify.com'
 
 
 app.get('/login', (req, res) => {
-    const state =randomstring.generate(16);
+    const state = randomstring.generate(16);
     const scope = 'user-read-private user-read-email';
 
-    res.redirect('https://accounts.spotify.com/authorize?' +
+    res.redirect(`${baseUrlSpotify}/authorize?` +
     querystring.stringify({
       response_type: 'code',
-      origin: 'http://localhost:3000',
+      origin: 'http://localhost:3001',
       client_id: client_id,
       scope: scope,
       redirect_uri: redirect_uri,
@@ -45,7 +49,7 @@ app.get('/spotify/callback', async(req, res) => {
         axios({
             method: 'post',
             mode: 'cors',
-            url: 'https://accounts.spotify.com/api/token',
+            url: `${baseUrlSpotify}/api/token`,
             params: {
               grant_type: 'authorization_code',
               code: code,
@@ -63,10 +67,26 @@ app.get('/spotify/callback', async(req, res) => {
           .catch((error) => {
             console.log(error);
           });
-    }
-  
-   
-    
+    }  
+})
+
+app.post('/albums', async (req, res) => {
+  const {bearerToken} = req.body;
+  try {
+    const response = await axios({
+      method: 'get',
+      mode: 'cors',
+      url: `https://api.spotify.com/v1/albums/${'4aawyAB9vmqN3uQ7FjRGTy'}`,
+      headers: {
+        "authorization": `Bearer ${bearerToken}`,
+      }
+    });
+
+    res.json(response.data);
+
+  } catch (error) {
+    console.log(error);
+  }
 })
 
 
