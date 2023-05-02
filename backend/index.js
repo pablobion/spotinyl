@@ -67,7 +67,11 @@ app.get('/spotify/callback', async(req, res) => {
       })
 
       if(response.status === 200) {
-        res.redirect(`${req.headers.referer}?token=${response.data.access_token}`);
+        // res.json({
+        //   access_token: response.data.access_token,
+        //   status: 200
+        // })
+         res.redirect(`${req.headers.referer}?token=${response.data.access_token}`);
       }
       
     } catch(error){
