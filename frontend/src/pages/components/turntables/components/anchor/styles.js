@@ -5,8 +5,8 @@ export const Container = styled.div`
     width: 100px;
     height: 100px;
     position: absolute;
-    right: 70px;
-    top: 50px;
+    right: 30px;
+    top: 20px;
 
     display: flex;
     justify-content: center;
@@ -48,56 +48,53 @@ export const Container = styled.div`
     }
 
     .body {
-    position: absolute;
-    top: 8%;
-    right: 4%;
-    width: 100%;
-    height: 90%;
-    background-color: rgb(173, 173, 173);
-    border-radius: 5px;
-    box-shadow: 0px 4px 3px black;
-    transform: rotate(0deg);
-    transition: transform 0.6s;
+        position: absolute;
+        top: 8%;
+        right: 4%;
+        width: 100%;
+        height: 90%;
+        background-color: rgb(173, 173, 173);
+        border-radius: 5px;
+        box-shadow: 0px 4px 3px black;
     }
 
     .body_play {
-    transform-origin: 50% 0%;
-    animation: bodyMove 2s infinite;
+        transform-origin: 50% 0%;
+        animation: bodyMove 2s infinite;
     }
 
     .head {
-    position: absolute;
-    bottom: -10%;
-    right: 0%;
-    margin: auto;
-    width: 180%;
-    height: 20%;
-    background-color: rgb(124, 124, 124);
-    border-radius: 3px;
-    box-shadow: 0px 0px 3px black;
-    border-top-right-radius: 28px;
-
-    transform: rotate(35deg);
-    transition: transform 0.6s;
+        position: absolute;
+        bottom: -10%;
+        right: 0%;
+        margin: auto;
+        width: 180%;
+        height: 20%;
+        background-color: rgb(124, 124, 124);
+        border-radius: 3px;
+        box-shadow: 0px 0px 3px black;
+        border-top-right-radius: 28px;
+        transform: rotate(35deg);
+        transition: transform 0.6s;
     }
 
     .head::before {
-    content: "";
-    width: 40%;
-    height: 20%;
-    background: rgb(95, 95, 95);
-    position: absolute;
-    box-shadow: 0px 0px 3px black;
-    top: 25%;
-    left: 28%;
-    border-radius: 50px;
+        content: "";
+        width: 40%;
+        height: 20%;
+        background: rgb(95, 95, 95);
+        position: absolute;
+        box-shadow: 0px 0px 3px black;
+        top: 25%;
+        left: 28%;
+        border-radius: 50px;
     }
 
     .head_play {
-    transform: rotate(45deg);
-    transition: transform 0.3s;
-    animation: move 1s infinite;
-    animation: headMove 2s infinite;
+        transform: rotate(45deg);
+        transition: transform 0.3s;
+        animation: move 1s infinite;
+        animation: headMove 2s infinite;
     }
 
 

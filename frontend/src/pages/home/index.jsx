@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import {Container, BoxDiscosImage, DivVinylStack, DivTurnTables} from './styles';
+import {Container, DivVinylStack, DivTurnTables} from './styles';
 
 import boxImage from '../../assets/box.png'
 
@@ -56,8 +56,6 @@ function Home() {
         <DivTurnTables>
           <TurnTables />
         </DivTurnTables>
-
-        <BoxDiscosImage src={boxImage} alt="box" />
         <DivVinylStack>
           <VinylStack vinyls={vinyls}/>
         </DivVinylStack>

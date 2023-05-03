@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 
-import { VinylDisc, Vinylls } from './styles'
+import { VinylDisc, Container, BoxDiscosImage } from './styles'
+
+import boxImage from '../../../assets/box.png'
 
 const VinylStack = ({ vinyls }) => {
   const [dragging, setDragging] = useState(false);
@@ -10,10 +12,13 @@ const VinylStack = ({ vinyls }) => {
   const [teste, setTeste] = useState(0);
 
   const handleMouseDown = (e) => {
-    setDragging(true);
-    setDragStart(e.clientY);
-    console.log('apertou o mouse')
-    console.log(e.clientY)
+    // setDragging(true);
+    // setDragStart(e.clientY);
+    // console.log('apertou o mouse')
+    // console.log(e.clientY)
+    const element = e.target.childNodes[0];
+    console.log(element)
+    element.classList.add("animationDiscUp")
   };
 
   const handleMouseMove = (e) => {
@@ -26,33 +31,39 @@ const VinylStack = ({ vinyls }) => {
     }
   };
 
-  const handleMouseUp = () => {
-    setDragging(false);
-    console.log('soltou o mouse')
+  const handleMouseUp = (e) => {
+    const element = e.target.childNodes[0];
+    console.log(element)
+    element.classList.remove("animationDiscUp")
+    element.classList.add("animationDiscDown")
+    setTimeout(() => {
+      element.classList.remove("animationDiscDown")
+    }, 500)
+
   };
 
-  const clickOnVinyl = (index) =>{
-    setTeste(index)
-  }
-
-
-
   return (
-    <Vinylls
-      onMouseDown={handleMouseDown}
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
-      onMouseLeave={handleMouseUp}
+    <Container
+      // onMouseDown={handleMouseDown}
+      // onMouseMove={handleMouseMove}
+      // onMouseUp={handleMouseUp}
+      // onMouseLeave={handleMouseUp}
     >
       {vinyls.map((vinyl, index) => {
         return (
-          <VinylDisc onClick={() => clickOnVinyl(index)} key={index} inputColor="rebeccapurple" bottom={index * -50}>
-            <img src={vinyl.image} />
+          
+          <VinylDisc 
+          onMouseDown={handleMouseDown}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseUp}
+           key={`${index}`} index={index} bottom={index * -50}>
+            <img  src={vinyl.image} />
           </VinylDisc>
         )
         })
       }
-    </Vinylls>
+      <BoxDiscosImage src={boxImage} alt="box" />
+    </Container>
   );
 };
 

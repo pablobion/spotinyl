@@ -13,23 +13,14 @@ export const Container = styled.div`
 export const DivVinylStack = styled.div`
     position: absolute;
     bottom: 10px;
-    left: 10vw;
+    left: 0px;
 `;
 
 export const DivTurnTables = styled.div`
     position: absolute;
-    left: 40vw;
+    left: 55vw;
     bottom: 40vh;
 
-`;
-
-export const BoxDiscosImage = styled.img`
-    filter: drop-shadow(0px 20px 20px rgba(rgb(48, 48, 48), 0.9));
-    position: absolute;
-    bottom: 10px;
-    z-index: 2;
-    width: 480px;
-    left: 10vw;
 `;
 
 

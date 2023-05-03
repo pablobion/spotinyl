@@ -3,6 +3,7 @@ import {Container} from './styles.js'
 
 
 import Anchor from './components/anchor/index'
+import PlayButton from './components/playButton/index'
 
 const TurnTables = () => {
 
@@ -14,10 +15,7 @@ const TurnTables = () => {
 
     return (
         <Container playingColor={playing ? 'lime' : 'red'}>
-            <button id="playButton" onClick={() => handlePlay(!playing)}>
-                <div id='playerButtonLed'/>
-                <p>Start / Stop</p>
-            </button>
+            <PlayButton isPlaying={playing} handlePlay={handlePlay}/>
             <Anchor isPlaying={playing}/>
         </Container>
     );
