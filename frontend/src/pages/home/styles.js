@@ -20,7 +20,6 @@ export const DivTurnTables = styled.div`
     position: absolute;
     left: 55vw;
     bottom: 40vh;
-
 `;
 
 

@@ -13,30 +13,29 @@ export const Container = styled.div`
 `;
 
 
-export const VinylDisc = styled.div`
+export const VinylDiscDiv = styled.div`
     position: absolute;
     bottom: ${props => props.bottom}px;
-    box-shadow: 0px 0px 2px 0px #494949;
-    transform: scale(1.3);
 
-    transition: transform 0.8s;
-    transform-style: preserve-3d;
-    transform: rotateX(20deg) rotateY(-5deg);
 
-    &:hover {
-        transform: translateY(-20px) rotateY(0deg);
-        cursor: pointer;
+    &:hover { // Passar mouse na stack
+        .vinylDisc {
+            &:not(.animationDiscUp) { // Faz o efeito de passar o mouse apenas nos que não tao up
+                transform: rotateX(0deg) rotateY(-4deg) translateY(-5px);
+                cursor: pointer;
+            }
+        }
+    }
+
+    .vinylDisc {
+        transition: transform 0.8s;
+        transform: rotateX(40deg) rotateY(-4deg);
+        border: 1px solid green;
     }
 
     .animationDiscUp {
-        box-shadow: 0px 0px 20px 0px gray;
-        transition: transform 0.8s;
-        
-        transform: translateY(-450px);
-    }
-    .animationDiscDown {
-        transition: transform 0.8s;
-        transform: translateY(0px);
+        border: 1px solid red;
+        transform: rotateX(0deg) rotateY(0deg) translateY(${props => -550+(props.bottom)}px) scale(1.3);
     }
 `;
 
@@ -49,5 +48,5 @@ export const BoxDiscosImage = styled.img`
     bottom: -20px;
     z-index: 2;
     width: 370px;
-    left: 16vw;
+    left: 305px;
 `;

@@ -1,64 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
-import { VinylDisc, Container, BoxDiscosImage } from './styles'
+import { VinylDiscDiv, Container, BoxDiscosImage } from './styles'
 
 import boxImage from '../../../assets/box.png'
 
 const VinylStack = ({ vinyls }) => {
-  const [dragging, setDragging] = useState(false);
-  const [dragStart, setDragStart] = useState(null);
-  const [translateY, setTranslateY] = useState(0);
 
-  const [teste, setTeste] = useState(0);
+  let currentElement = null;
 
-  const handleMouseDown = (e) => {
-    // setDragging(true);
-    // setDragStart(e.clientY);
-    // console.log('apertou o mouse')
-    // console.log(e.clientY)
-    const element = e.target.childNodes[0];
-    console.log(element)
-    element.classList.add("animationDiscUp")
-  };
-
-  const handleMouseMove = (e) => {
-    if (dragging) {
-      console.log('movendo')
-      const diff = e.clientY - dragStart;
-      console.log(diff)
-      setTranslateY((prev) => prev + diff);
-      setDragStart(e.clientY);
+  const handleSelectAlbum = (e) => {
+    const target = e.target;
+    if (currentElement === target) {
+      currentElement.classList.remove("animationDiscUp");
+      currentElement = null;
+    } else {
+      if (currentElement) {
+        currentElement.classList.remove("animationDiscUp");
+      }
+      target.classList.add("animationDiscUp");
+      currentElement = target;
     }
   };
 
-  const handleMouseUp = (e) => {
-    const element = e.target.childNodes[0];
-    console.log(element)
-    element.classList.remove("animationDiscUp")
-    element.classList.add("animationDiscDown")
-    setTimeout(() => {
-      element.classList.remove("animationDiscDown")
-    }, 500)
-
-  };
-
   return (
-    <Container
-      // onMouseDown={handleMouseDown}
-      // onMouseMove={handleMouseMove}
-      // onMouseUp={handleMouseUp}
-      // onMouseLeave={handleMouseUp}
-    >
+    <Container>
       {vinyls.map((vinyl, index) => {
         return (
-          
-          <VinylDisc 
-          onMouseDown={handleMouseDown}
-          onMouseUp={handleMouseUp}
-          onMouseLeave={handleMouseUp}
-           key={`${index}`} index={index} bottom={index * -50}>
-            <img  src={vinyl.image} />
-          </VinylDisc>
+          <VinylDiscDiv 
+            onClick={(e) => handleSelectAlbum(e)}
+            key={`${index}`} 
+            bottom={index * -50}>
+            <div className='vinylDisc' >
+              <img  src={vinyl.image} />
+            </div>
+          </VinylDiscDiv>
         )
         })
       }
