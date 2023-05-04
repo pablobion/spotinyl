@@ -6,10 +6,10 @@ import {Container} from './styles.js'
      return (
          <Container isPlaying={isPlaying}>
             <div id='circleBase'></div>
-            <div class="bottom"></div>
-            <div class="arm"> 
-            <div class="body">
-                <div class="head"></div>
+            <div className="bottom"></div>
+            <div className="arm"> 
+            <div className="body">
+                <div className="head"></div>
             </div>
             </div>
          </Container>

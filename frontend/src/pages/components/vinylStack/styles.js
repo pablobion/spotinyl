@@ -3,7 +3,6 @@ import styled from 'styled-components'
 export const Container = styled.div`
     position: absolute;
     bottom: -10px;
-    border: 1px solid red;
     width: 1000px;
     height: 100vh;
     display: flex;
@@ -20,7 +19,7 @@ export const VinylDiscDiv = styled.div`
 
     &:hover { // Passar mouse na stack
         .vinylDisc {
-            &:not(.animationDiscUp) { // Faz o efeito de passar o mouse apenas nos que não tao up
+            &:not(.vinylUp) { // Faz o efeito de passar o mouse apenas nos que não tao up
                 transform: rotateX(0deg) rotateY(-4deg) translateY(-5px);
                 cursor: pointer;
             }
@@ -30,12 +29,56 @@ export const VinylDiscDiv = styled.div`
     .vinylDisc {
         transition: transform 0.8s;
         transform: rotateX(40deg) rotateY(-4deg);
-        border: 1px solid green;
+
+        .disco {
+            width: 450px;
+            left: -70px;
+            position: absolute;
+            display: none;
+        }
     }
 
-    .animationDiscUp {
-        border: 1px solid red;
-        transform: rotateX(0deg) rotateY(0deg) translateY(${props => -550+(props.bottom)}px) scale(1.3);
+    .vinylUp {
+        transform: rotateX(0deg) rotateY(0deg) translateY(${props => -550+(props.bottom)}px) scale(1.25);
+    }  
+
+    .vinylOpen {
+        .disco {
+                display: inline;
+                animation-name: MoveUpDisco;
+                animation-duration: 1.5s;
+                animation-fill-mode: forwards;
+                z-index: -1;
+            }
+       
+        @keyframes MoveUpDisco {
+            0% {
+            }
+            100% {
+                transform: translateX(160px) rotate(180deg);
+                transform-origin: inherit;
+            }
+        }
+    }
+
+    .vinylClose {
+        .disco {
+                display: inline;
+                animation-name: MoveDownDisco;
+                animation-duration: 1s;
+                animation-fill-mode: forwards;
+                z-index: -1;
+            }
+       
+        @keyframes MoveDownDisco {
+            0% {
+                transform: translateX(160px) rotate(0deg);
+            }
+            100% {
+                transform: translateX(0px) rotate(180deg);
+                transform-origin: inherit;
+            }
+        }
     }
 `;
 
