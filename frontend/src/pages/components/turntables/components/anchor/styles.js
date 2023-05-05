@@ -5,14 +5,11 @@ export const Container = styled.div`
     width: 100px;
     height: 100px;
     position: absolute;
-    right: 30px;
-    top: 20px;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
     #circleBase {
+        position: absolute;
+        top: 10px;
         border-radius: 50%;
         width: 100px;
         height: 100px;
@@ -26,7 +23,7 @@ export const Container = styled.div`
 
     .bottom {
         position: absolute;
-        top: 15%;
+        top: 25px;
         right: 15%;
         width: 70px;
         height: 70px;
@@ -40,10 +37,10 @@ export const Container = styled.div`
         top: 40%;
         right: 40%;
         width: 20px;
-        height: 350px;
-
+        height: 300px;
+        z-index: 1;
         transform-origin: 50% 0%;
-        transform: ${props => props.isPlaying ? 'rotate(25.5deg)' : 'rotate(0deg)'};
+        transform: ${props => props.isPlaying ? 'rotate(30deg)' : 'rotate(0deg)'};
         transition: transform 0.6s;
     }
 

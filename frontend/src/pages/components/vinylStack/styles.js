@@ -2,12 +2,10 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
     position: absolute;
-    bottom: -10px;
     width: 1000px;
     height: 100vh;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
     align-items: center;
 `;
 
@@ -15,7 +13,6 @@ export const Container = styled.div`
 export const VinylDiscDiv = styled.div`
     position: absolute;
     bottom: ${props => props.bottom}px;
-
 
     &:hover { // Passar mouse na stack
         .vinylDisc {
@@ -29,6 +26,7 @@ export const VinylDiscDiv = styled.div`
     .vinylDisc {
         transition: transform 0.8s;
         transform: rotateX(40deg) rotateY(-4deg);
+        cursor: pointer;
 
         .disco {
             width: 450px;
@@ -67,7 +65,6 @@ export const VinylDiscDiv = styled.div`
                 animation-name: MoveDownDisco;
                 animation-duration: 1s;
                 animation-fill-mode: forwards;
-                z-index: -1;
             }
        
         @keyframes MoveDownDisco {
@@ -79,6 +76,29 @@ export const VinylDiscDiv = styled.div`
                 transform-origin: inherit;
             }
         }
+    }
+
+    .vinylInsert {
+        .disco {
+            animation-name: insertDiscoAnimation;
+            animation-duration: 1s;
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes insertDiscoAnimation {
+            0% {
+                transform: translateX(160px) rotate(180deg);
+            }
+            100% {
+                position: absolute;
+                top: 60%;
+                left: 290%;
+
+                /* transform: translateX(25vw) rotate(0deg);
+                transform-origin: inherit; */
+            }
+        }
+
     }
 `;
 

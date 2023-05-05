@@ -52,13 +52,15 @@ function Home() {
 
     return (
       <Container>
-        <button onClick={fetchBack}>harrys house</button>
+        {/* <button onClick={fetchBack}>harrys house</button> */}
+        <DivVinylStack>
+          <button>dd</button>
+          <VinylStack vinyls={vinyls}/>
+        </DivVinylStack>
         <DivTurnTables>
           <TurnTables />
         </DivTurnTables>
-        <DivVinylStack>
-          <VinylStack vinyls={vinyls}/>
-        </DivVinylStack>
+       
         
       </Container>
     )

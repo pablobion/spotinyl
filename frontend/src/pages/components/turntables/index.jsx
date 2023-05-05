@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {Container} from './styles.js'
+import {Container, TurnTablesDeisgn} from './styles.js'
 
 
 import Anchor from './components/anchor/index'
@@ -15,10 +15,18 @@ const TurnTables = () => {
     }
 
     return (
-        <Container playingColor={playing ? 'lime' : 'red'}>
-            <InsertButton/>
-            <PlayButton isPlaying={playing} handlePlay={handlePlay}/>
-            <Anchor isPlaying={playing}/>
+        <Container>
+            <TurnTablesDeisgn playingColor={playing ? 'lime' : 'red'}>
+                <div id='left'>
+                <InsertButton/>
+                    <PlayButton isPlaying={playing} handlePlay={handlePlay}/>
+                </div>
+                <div id='right'>
+                <Anchor isPlaying={playing}/>
+                </div>
+                 
+                    
+            </TurnTablesDeisgn>
         </Container>
     );
 };

@@ -5,21 +5,22 @@ export const Container = styled.div`
     width: 100vw;
     height: 100vh;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: fixed; //para nao ter scroll
+    background-color: red;
 `;
 
 export const DivVinylStack = styled.div`
-    position: absolute;
-    bottom: 10px;
-    left: 0px;
+    background-color: yellow;
+    height: 100vh;
+    width: 50%;
 `;
 
 export const DivTurnTables = styled.div`
-    position: absolute;
-    left: 55vw;
-    bottom: 40vh;
+    background-color: blue;
+    height: 100vh;
+    width: 50%;
 `;
 
 

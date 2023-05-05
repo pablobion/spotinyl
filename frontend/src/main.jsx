@@ -5,10 +5,14 @@ import { BrowserRouter } from "react-router-dom";
 
 import RoutesComponent from './routes.jsx'
 
+import VinylProvider from './pages/context/context'
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-     <BrowserRouter>
-        <RoutesComponent />
-    </BrowserRouter>
+    <VinylProvider>
+      <BrowserRouter>
+          <RoutesComponent />
+      </BrowserRouter>
+    </VinylProvider>
   </React.StrictMode>,
 )

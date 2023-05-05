@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 
 export const Container = styled.div`
-    #playButton{
+    #playButton {
         width: 120px;
         height: 120px;
         border-radius: 50%;
@@ -13,11 +13,10 @@ export const Container = styled.div`
         display: flex;
         justify-content: space-around;
         align-items: center;
-        margin: 30px;
         padding: 10px;
-        position: absolute;
-        bottom: 10px;
+        
         cursor: pointer;
+
 
         &:active {
             box-shadow: 0px 0px 5px 0px black inset;

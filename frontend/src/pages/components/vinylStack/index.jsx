@@ -5,38 +5,37 @@ import { VinylDiscDiv, Container, BoxDiscosImage } from './styles'
 import boxImage from '../../../assets/box.png'
 import discoImage from '../../../assets/disco.png'
 
+import { useVinylContext } from "../../../pages/context/context.jsx";
+
 const VinylStack = ({ vinyls }) => {
 
-  const [currentElement, setCurrentElement] = useState();
+  const {currentVinyl, setCurrentVinyl} = useVinylContext();
 
-  const handleSelectAlbum = (e) => {
+  const removeClassNames = (element, classNames) => classNames.forEach(className => element.classList.remove(className));
+  
+  const handleSelectAlbum = (e, currentVinyl) => {
     const target = e.target;
-    if (currentElement === target) {
+    if (currentVinyl === target) {
+      currentVinyl.classList.add("vinylClose");
+      setTimeout(() => removeClassNames(currentVinyl, ["vinylUp", "vinylOpen", "vinylClose"]), 600);
+      setCurrentVinyl(null);
+      return
+    } 
 
-      currentElement.classList.add("vinylClose");
-      setTimeout(() => {
-        currentElement.classList.remove("vinylUp");
-        currentElement.classList.remove("vinylOpen");
-        currentElement.classList.remove("vinylClose");
-      }, 1000);
-
-      setCurrentElement(null)
-    } else {
-      if (currentElement) {
-        currentElement.classList.add("vinylClose");
-        setTimeout(() => {
-          currentElement.classList.remove("vinylUp");
-          currentElement.classList.remove("vinylOpen");
-          currentElement.classList.remove("vinylClose");
-        }, 1000);
-      }
-
-      target.classList.add("vinylUp");
-      setTimeout(() => {
-        target.classList.add("vinylOpen");
-      }, 500);
-      setCurrentElement(target)
+    if (currentVinyl) {
+      currentVinyl.classList.add("vinylClose");
+      setTimeout(() => removeClassNames(currentVinyl, ["vinylUp", "vinylOpen", "vinylClose"]), 600);
     }
+
+    
+    const runClose = target.classList.contains('vinylClose');
+    if(runClose) return
+    
+    target.classList.add("vinylUp");
+    setTimeout(() => target.classList.add("vinylOpen"), 500);
+    setCurrentVinyl(target)
+    console.log('olok')
+    
   };
 
   return (
@@ -44,18 +43,18 @@ const VinylStack = ({ vinyls }) => {
       {vinyls.map((vinyl, index) => {
         return (
           <VinylDiscDiv 
-            onClick={(e) => handleSelectAlbum(e)}
+            onClick={(e) => handleSelectAlbum(e, currentVinyl)}
             key={`${index}`} 
             bottom={index * -50}>
-            <div className='vinylDisc' >
+            <div className='vinylDisc'>
               <img src={vinyl.image} />
-              <img className='disco' src={discoImage} />
+              <img className='disco' src={discoImage}/>
             </div>
           </VinylDiscDiv>
         )
         })
       }
-      { currentElement && (
+      { currentVinyl && (
         <button>Abrir este disco</button>
       )}
       <BoxDiscosImage src={boxImage} alt="box" />
