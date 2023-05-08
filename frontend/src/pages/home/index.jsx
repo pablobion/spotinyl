@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import {Container, DivVinylStack, DivTurnTables} from './styles';
+import {Main, Container, DivVinylStack, DivTurnTables} from './styles';
 
 import boxImage from '../../assets/box.png'
 
@@ -51,18 +51,20 @@ function Home() {
     }
 
     return (
-      <Container>
-        {/* <button onClick={fetchBack}>harrys house</button> */}
-        <DivVinylStack>
-          <button>dd</button>
-          <VinylStack vinyls={vinyls}/>
-        </DivVinylStack>
-        <DivTurnTables>
-          <TurnTables />
-        </DivTurnTables>
-       
+      <Main>
+        <Container>
+          {/* <button onClick={fetchBack}>harrys house</button> */}
+          <DivVinylStack>
+            <VinylStack vinyls={vinyls}/>
+          </DivVinylStack>
+          <DivTurnTables>
+            <TurnTables />
+          </DivTurnTables>
         
-      </Container>
+          
+        </Container>
+      </Main>
+
     )
 }
 

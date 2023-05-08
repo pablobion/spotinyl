@@ -9,33 +9,13 @@ import { useVinylContext } from "../../../pages/context/context.jsx";
 
 const VinylStack = ({ vinyls }) => {
 
-  const {currentVinyl, setCurrentVinyl} = useVinylContext();
+  const {currentVinyl, playing, handleChangeStatusCurrentVinyl} = useVinylContext();
 
-  const removeClassNames = (element, classNames) => classNames.forEach(className => element.classList.remove(className));
-  
   const handleSelectAlbum = (e, currentVinyl) => {
-    const target = e.target;
-    if (currentVinyl === target) {
-      currentVinyl.classList.add("vinylClose");
-      setTimeout(() => removeClassNames(currentVinyl, ["vinylUp", "vinylOpen", "vinylClose"]), 600);
-      setCurrentVinyl(null);
-      return
-    } 
-
-    if (currentVinyl) {
-      currentVinyl.classList.add("vinylClose");
-      setTimeout(() => removeClassNames(currentVinyl, ["vinylUp", "vinylOpen", "vinylClose"]), 600);
-    }
-
-    
-    const runClose = target.classList.contains('vinylClose');
-    if(runClose) return
-    
-    target.classList.add("vinylUp");
-    setTimeout(() => target.classList.add("vinylOpen"), 500);
-    setCurrentVinyl(target)
-    console.log('olok')
-    
+    const element = e.target;
+    return currentVinyl === element 
+      ? handleChangeStatusCurrentVinyl({element, action: 'vinylDown'}) 
+      : handleChangeStatusCurrentVinyl({element, action: 'vinylUp'});
   };
 
   return (
@@ -45,18 +25,17 @@ const VinylStack = ({ vinyls }) => {
           <VinylDiscDiv 
             onClick={(e) => handleSelectAlbum(e, currentVinyl)}
             key={`${index}`} 
-            bottom={index * -50}>
+            bottom={index * -50}
+            playing={playing}
+            >
             <div className='vinylDisc'>
               <img src={vinyl.image} />
-              <img className='disco' src={discoImage}/>
+              <img className='disco' src={discoImage} onClick={() => alert('oie')}/>
             </div>
           </VinylDiscDiv>
         )
         })
       }
-      { currentVinyl && (
-        <button>Abrir este disco</button>
-      )}
       <BoxDiscosImage src={boxImage} alt="box" />
     </Container>
   );

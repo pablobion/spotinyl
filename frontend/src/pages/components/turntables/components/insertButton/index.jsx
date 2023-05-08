@@ -5,15 +5,15 @@ import { useVinylContext } from "../../../../../pages/context/context.jsx";
 
 const InsertButton = () => {
 
-    const {currentVinyl} = useVinylContext();
+    const {currentVinyl, handleChangeStatusCurrentVinyl} = useVinylContext();
 
-    const handleInsertDisk = () => {
-        currentVinyl.classList.add("vinylInsert")
+    const handleInsertDisk = (target) => {
+        handleChangeStatusCurrentVinyl({action: 'vinylInsertEject'});    
     }
 
 
     return (
-        <Container onClick={() => handleInsertDisk()}>
+        <Container onClick={(e) => handleInsertDisk(e)}>
             
             <p>Insert / Eject</p>
             <p>Disc</p>

@@ -6,23 +6,33 @@ import Anchor from './components/anchor/index'
 import PlayButton from './components/playButton/index'
 import InsertButton from './components/insertButton/index'
 
+import { useVinylContext } from "../../../pages/context/context.jsx";
+
 const TurnTables = () => {
 
-    const [playing, setPlaying ] = useState(false);
+    const {playing, setPlaying, handleChangeStatusCurrentVinyl, currentVinylStatus} = useVinylContext();
 
-    const handlePlay = (action) => {
-        setPlaying(action)
+    const handlePlay = () => {
+        if(currentVinylStatus !== 'insert'){
+            setPlaying(true)
+            setTimeout(() => {
+                setPlaying(false)
+            }, 100);
+            return false;
+        }
+        handleChangeStatusCurrentVinyl({action: 'vinylRotate'});
+        setPlaying(!playing)  
     }
 
     return (
         <Container>
             <TurnTablesDeisgn playingColor={playing ? 'lime' : 'red'}>
                 <div id='left'>
-                <InsertButton/>
+                    <InsertButton/>
                     <PlayButton isPlaying={playing} handlePlay={handlePlay}/>
                 </div>
                 <div id='right'>
-                <Anchor isPlaying={playing}/>
+                    <Anchor isPlaying={playing}/>
                 </div>
                  
                     

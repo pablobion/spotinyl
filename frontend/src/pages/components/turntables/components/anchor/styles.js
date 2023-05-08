@@ -6,6 +6,7 @@ export const Container = styled.div`
     height: 100px;
     position: absolute;
 
+    
 
     #circleBase {
         position: absolute;
@@ -40,8 +41,23 @@ export const Container = styled.div`
         height: 300px;
         z-index: 1;
         transform-origin: 50% 0%;
-        transform: ${props => props.isPlaying ? 'rotate(30deg)' : 'rotate(0deg)'};
+
+        transform: ${props => props.isPlaying ? 'rotate(35deg)' : 'rotate(0deg)'};
         transition: transform 0.6s;
+
+       ${props => props.isPlaying ? `
+            animation: mymove 2s linear infinite;
+            animation-delay: 1.5s;
+            @keyframes mymove {
+                0% {transform: rotate(34deg);}
+                50% {transform: rotate(38deg);}
+                100% {transform: rotate(34deg);}
+            }
+        ` : `transform: rotate(0deg);`}
+
+        /* ${props => !props.isPlaying && `transform: rotate(0deg);`} */
+
+       
     }
 
     .body {

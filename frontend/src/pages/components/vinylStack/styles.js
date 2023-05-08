@@ -7,6 +7,7 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    
 `;
 
 
@@ -43,9 +44,7 @@ export const VinylDiscDiv = styled.div`
     .vinylOpen {
         .disco {
                 display: inline;
-                animation-name: MoveUpDisco;
-                animation-duration: 1.5s;
-                animation-fill-mode: forwards;
+                animation: MoveUpDisco 1.5s forwards;
                 z-index: -1;
             }
        
@@ -59,12 +58,10 @@ export const VinylDiscDiv = styled.div`
         }
     }
 
-    .vinylClose {
+    .vinylDown {
         .disco {
                 display: inline;
-                animation-name: MoveDownDisco;
-                animation-duration: 1s;
-                animation-fill-mode: forwards;
+                animation: MoveDownDisco 1s forwards;
             }
        
         @keyframes MoveDownDisco {
@@ -78,28 +75,65 @@ export const VinylDiscDiv = styled.div`
         }
     }
 
+
+
     .vinylInsert {
         .disco {
-            animation-name: insertDiscoAnimation;
-            animation-duration: 1s;
+            animation: insertDiscoAnimation 1s forwards;
+
+            @keyframes insertDiscoAnimation {
+                0% {
+                    transform: rotate(-180deg);
+                }
+                100% {
+                    left: 730px;
+                }
+            }
+        }
+    }
+
+    .vinylEject {
+        .disco {
+            animation-name: ejectDiscoAnimation;
+            animation-duration: 1.5s;
             animation-fill-mode: forwards;
         }
 
-        @keyframes insertDiscoAnimation {
+        @keyframes ejectDiscoAnimation {
             0% {
-                transform: translateX(160px) rotate(180deg);
+                left: 730px;
             }
             100% {
-                position: absolute;
-                top: 60%;
-                left: 290%;
-
-                /* transform: translateX(25vw) rotate(0deg);
-                transform-origin: inherit; */
+                transform: rotate(180deg);
+                transform-origin: inherit;
             }
+        }
+    }
+
+    .vinylRotate {
+        .disco {
+         
+            left: 730px;
+            ${props => props.playing && `
+             animation: rotate 4s linear infinite;
+            `}
+            
+              @keyframes rotate {
+                0% {
+                    left: 730px;
+                }
+                100% {
+                   
+                    transform: rotate(1turn);
+                }
+            }
+            
+          
         }
 
     }
+
+  
 `;
 
 
