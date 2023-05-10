@@ -82,18 +82,31 @@ app.get('/spotify/callback', async(req, res) => {
 })
 
 app.post('/albums', async (req, res) => {
-  const {bearerToken} = req.body;
+  const {bearerToken, album} = req.body;
   try {
+
+    console.log(bearerToken, album)
     const response = await axios({
       method: 'get',
       mode: 'cors',
-      url: `https://api.spotify.com/v1/albums/${'4aawyAB9vmqN3uQ7FjRGTy'}`,
+      url: `https://api.spotify.com/v1/search?type=album&q=${album}`,
       headers: {
         "authorization": `Bearer ${bearerToken}`,
       }
     });
 
-    res.json(response.data);
+    const items = response?.data?.albums?.items;
+
+    const albumList = items.map(elem => {
+      if(elem.album_type !== 'album') return
+      return {
+        name: elem.name,
+        image: elem.images[1].url,
+        artist: elem.artists[0].name,
+        id: elem.id
+      }
+    })
+    res.json(albumList);
 
   } catch (error) {
     console.log(error);

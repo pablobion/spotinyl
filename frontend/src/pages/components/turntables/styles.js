@@ -22,7 +22,6 @@ export const TurnTablesDeisgn = styled.div`
     box-shadow: 0px 5px 30px 5px #494949;
 
     #left {
-        border: 1px solid;
         display: flex;
         align-items: flex-start;
         justify-content: space-between;
@@ -31,7 +30,6 @@ export const TurnTablesDeisgn = styled.div`
     }
 
     #right {
-        border: 1px solid;
         display: flex;
         align-items: flex-start;
         justify-content: space-between;

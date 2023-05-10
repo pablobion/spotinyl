@@ -6,6 +6,7 @@ export default function vinylProvider({ children }) {
     const [currentVinyl, setCurrentVinyl] = useState(null);
     const [currentVinylStatus, setCurrentVinylStatus] = useState(null);
     const [playing, setPlaying ] = useState(false);
+    const [vinylList, setVinylList] = useState([]);
 
     const remClass = (element, classNames) => classNames.forEach(className => element.classList.remove(className));
 
@@ -81,7 +82,9 @@ export default function vinylProvider({ children }) {
                 currentVinylStatus,
                 handleChangeStatusCurrentVinyl,
                 playing, 
-                setPlaying
+                setPlaying,
+                vinylList, 
+                setVinylList
             }}
         >
             {children}
@@ -93,7 +96,7 @@ export function useVinylContext() {
     const context = useContext(vinylContext);
     if (!context) throw new Error("useCount must be used within a CountProvider");
 
-    const { currentVinyl, setCurrentVinyl, currentVinylStatus, handleChangeStatusCurrentVinyl, playing, setPlaying} = context;
+    const { currentVinyl, setCurrentVinyl, currentVinylStatus, handleChangeStatusCurrentVinyl, playing, setPlaying, vinylList, setVinylList} = context;
 
-    return { currentVinyl, setCurrentVinyl, currentVinylStatus, handleChangeStatusCurrentVinyl, playing, setPlaying};
+    return { currentVinyl, setCurrentVinyl, currentVinylStatus, handleChangeStatusCurrentVinyl, playing, setPlaying, vinylList, setVinylList};
 }

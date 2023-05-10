@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
     position: absolute;
-    width: 1000px;
+    width: 400px;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -14,6 +14,7 @@ export const Container = styled.div`
 export const VinylDiscDiv = styled.div`
     position: absolute;
     bottom: ${props => props.bottom}px;
+    z-index: ${props => props.index};
 
     &:hover { // Passar mouse na stack
         .vinylDisc {
@@ -38,7 +39,7 @@ export const VinylDiscDiv = styled.div`
     }
 
     .vinylUp {
-        transform: rotateX(0deg) rotateY(0deg) translateY(${props => -550+(props.bottom)}px) scale(1.25);
+        transform: translateY(${props => -550+(props.bottom)}px) translateX(2) scale(1.25);
     }  
 
     .vinylOpen {
@@ -143,7 +144,7 @@ export const BoxDiscosImage = styled.img`
     filter: drop-shadow(0px 20px 20px rgba(rgb(48, 48, 48), 0.9));
     position: absolute;
     bottom: -20px;
-    z-index: 2;
+    z-index: 60;
     width: 370px;
     left: 305px;
 `;

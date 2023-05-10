@@ -7,9 +7,9 @@ import discoImage from '../../../assets/disco.png'
 
 import { useVinylContext } from "../../../pages/context/context.jsx";
 
-const VinylStack = ({ vinyls }) => {
+const VinylStack = () => {
 
-  const {currentVinyl, playing, handleChangeStatusCurrentVinyl} = useVinylContext();
+  const {currentVinyl, playing, handleChangeStatusCurrentVinyl, vinylList} = useVinylContext();
 
   const handleSelectAlbum = (e, currentVinyl) => {
     const element = e.target;
@@ -20,16 +20,18 @@ const VinylStack = ({ vinyls }) => {
 
   return (
     <Container>
-      {vinyls.map((vinyl, index) => {
+      <button onClick={() => console.log(vinylList)}>apesar de querer</button>
+      {vinylList.map((vinyl, index) => {
         return (
           <VinylDiscDiv 
             onClick={(e) => handleSelectAlbum(e, currentVinyl)}
             key={`${index}`} 
-            bottom={index * -50}
+            bottom={index * 30}
+            index={50 - index}
             playing={playing}
             >
             <div className='vinylDisc'>
-              <img src={vinyl.image} />
+              <img src={vinyl?.image} />
               <img className='disco' src={discoImage} onClick={() => alert('oie')}/>
             </div>
           </VinylDiscDiv>

@@ -25,6 +25,8 @@ export const DivTurnTables = styled.div`
     /* background-color: blue; */
     height: 100vh;
     width: 50%;
+    display: flex;
+    flex-direction: column;
 `;
 
 
