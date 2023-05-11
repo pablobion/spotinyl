@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
     position: absolute;
-    width: 400px;
+    width: 1000px;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -14,7 +14,6 @@ export const Container = styled.div`
 export const VinylDiscDiv = styled.div`
     position: absolute;
     bottom: ${props => props.bottom}px;
-    z-index: ${props => props.index};
 
     &:hover { // Passar mouse na stack
         .vinylDisc {
@@ -32,20 +31,20 @@ export const VinylDiscDiv = styled.div`
 
         .disco {
             width: 450px;
-            left: -70px;
+            left: 0px;
             position: absolute;
             display: none;
         }
     }
 
     .vinylUp {
-        transform: translateY(${props => -550+(props.bottom)}px) translateX(2) scale(1.25);
+        transform: rotateX(0deg) rotateY(0deg) translateY(${props => -550+(props.bottom)}px) scale(1.25);
     }  
 
     .vinylOpen {
         .disco {
                 display: inline;
-                animation: MoveUpDisco 1.5s forwards;
+                animation: MoveUpDisco 2s forwards;
                 z-index: -1;
             }
        
@@ -53,8 +52,8 @@ export const VinylDiscDiv = styled.div`
             0% {
             }
             100% {
-                transform: translateX(160px) rotate(180deg);
-                transform-origin: inherit;
+                transform: translateX(160px) rotate(360deg);
+                transform-origin: bottom;
             }
         }
     }
@@ -144,7 +143,7 @@ export const BoxDiscosImage = styled.img`
     filter: drop-shadow(0px 20px 20px rgba(rgb(48, 48, 48), 0.9));
     position: absolute;
     bottom: -20px;
-    z-index: 60;
+    z-index: 2;
     width: 370px;
     left: 305px;
 `;

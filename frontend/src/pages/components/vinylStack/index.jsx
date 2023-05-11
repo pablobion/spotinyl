@@ -5,6 +5,8 @@ import { VinylDiscDiv, Container, BoxDiscosImage } from './styles'
 import boxImage from '../../../assets/box.png'
 import discoImage from '../../../assets/disco.png'
 
+import VinylComponent from '../vinyl/index.jsx'
+
 import { useVinylContext } from "../../../pages/context/context.jsx";
 
 const VinylStack = () => {
@@ -32,7 +34,11 @@ const VinylStack = () => {
             >
             <div className='vinylDisc'>
               <img src={vinyl?.image} />
-              <img className='disco' src={discoImage} onClick={() => alert('oie')}/>
+              
+              <div className='disco' style={{ width: 200}}>
+                <VinylComponent />
+              </div>
+              {/* <img className='disco' src={discoImage} onClick={() => alert('oie')}/> */}
             </div>
           </VinylDiscDiv>
         )
