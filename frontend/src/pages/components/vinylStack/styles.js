@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
     position: absolute;
-    width: 1000px;
+    width: 500px;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -14,11 +14,12 @@ export const Container = styled.div`
 export const VinylDiscDiv = styled.div`
     position: absolute;
     bottom: ${props => props.bottom}px;
+    z-index: ${props => props.index};
 
     &:hover { // Passar mouse na stack
         .vinylDisc {
             &:not(.vinylUp) { // Faz o efeito de passar o mouse apenas nos que não tao up
-                transform: rotateX(0deg) rotateY(-4deg) translateY(-5px);
+                transform: translateY(-100px) translateX(50px) rotate(360deg);
                 cursor: pointer;
             }
         }
@@ -26,7 +27,7 @@ export const VinylDiscDiv = styled.div`
 
     .vinylDisc {
         transition: transform 0.8s;
-        transform: rotateX(40deg) rotateY(-4deg);
+        transform: rotateX(10deg);
         cursor: pointer;
 
         .disco {
@@ -38,7 +39,7 @@ export const VinylDiscDiv = styled.div`
     }
 
     .vinylUp {
-        transform: rotateX(0deg) rotateY(0deg) translateY(${props => -550+(props.bottom)}px) scale(1.25);
+        transform: rotateX(0deg) rotateY(0deg) translateY(${props => -550+(props.bottom)}px) translateX(500px) scale(1.25);
     }  
 
     .vinylOpen {
@@ -143,7 +144,7 @@ export const BoxDiscosImage = styled.img`
     filter: drop-shadow(0px 20px 20px rgba(rgb(48, 48, 48), 0.9));
     position: absolute;
     bottom: -20px;
-    z-index: 2;
+    z-index: 51;
     width: 370px;
-    left: 305px;
+    left: 55px;
 `;
