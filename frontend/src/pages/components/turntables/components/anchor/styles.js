@@ -38,7 +38,7 @@ export const Container = styled.div`
         top: 40%;
         right: 40%;
         width: 20px;
-        height: 300px;
+        height: 270px;
         z-index: 1;
         transform-origin: 50% 0%;
 
@@ -81,7 +81,7 @@ export const Container = styled.div`
         bottom: -10%;
         right: 0%;
         margin: auto;
-        width: 180%;
+        width: 140%;
         height: 20%;
         background-color: rgb(124, 124, 124);
         border-radius: 3px;

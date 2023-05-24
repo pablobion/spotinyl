@@ -35,10 +35,10 @@ const VinylStack = () => {
             <div className='vinylDisc'>
               <img src={vinyl?.image} />
               
-              <div className='disco' style={{ width: 200}}>
+              {/* <div className='disco' style={{ width: 0}}>
                 <VinylComponent />
-              </div>
-              {/* <img className='disco' src={discoImage} onClick={() => alert('oie')}/> */}
+              </div> */}
+              <img className='disco' style={{ width: 400}} src={discoImage} onClick={() => alert('oie')}/>
             </div>
           </VinylDiscDiv>
         )

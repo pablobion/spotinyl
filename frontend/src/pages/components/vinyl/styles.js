@@ -4,8 +4,10 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
   display: block;
-  width: 300px;
+  width: 250px;
   text-align: center;
+  border: 1px solid;
+
 
   audio {
     display: none;
@@ -14,8 +16,10 @@ export const Container = styled.div`
   position: relative;
   display: inline-block;
 
-  width: 270px;
-  height: 270px;
+  
+
+  width: 240px;
+  height: 240px;
   border-radius: 50%;
   background-color: #040504;
   box-shadow: 1px 1px 10px #000;

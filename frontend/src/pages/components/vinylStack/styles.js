@@ -27,26 +27,29 @@ export const VinylDiscDiv = styled.div`
 
     .vinylDisc {
         transition: transform 0.8s;
-        transform: rotateX(10deg);
+        transform: rotateX(10deg) skewY(-7deg);
+        transform-origin: 100% -30%;
         cursor: pointer;
 
         .disco {
-            width: 450px;
-            left: 0px;
+            left: 30px;
+            top: 30px;
             position: absolute;
             display: none;
         }
     }
 
     .vinylUp {
-        transform: rotateX(0deg) rotateY(0deg) translateY(${props => -550+(props.bottom)}px) translateX(500px) scale(1.25);
+        transform: rotateX(0deg) rotateY(0deg) translateY(${props => -590+(props.bottom)}px) translateX(500px) scale(1.25);
     }  
 
     .vinylOpen {
+
         .disco {
                 display: inline;
-                animation: MoveUpDisco 2s forwards;
+                animation: MoveUpDisco 1.3s forwards;
                 z-index: -1;
+                //border: 1px solid;
             }
        
         @keyframes MoveUpDisco {
@@ -54,7 +57,6 @@ export const VinylDiscDiv = styled.div`
             }
             100% {
                 transform: translateX(160px) rotate(360deg);
-                transform-origin: bottom;
             }
         }
     }
@@ -71,7 +73,6 @@ export const VinylDiscDiv = styled.div`
             }
             100% {
                 transform: translateX(0px) rotate(180deg);
-                transform-origin: inherit;
             }
         }
     }
@@ -85,9 +86,10 @@ export const VinylDiscDiv = styled.div`
             @keyframes insertDiscoAnimation {
                 0% {
                     transform: rotate(-180deg);
+                    left: 70px;
                 }
                 100% {
-                    left: 730px;
+                    left: 670px;
                 }
             }
         }
@@ -102,11 +104,11 @@ export const VinylDiscDiv = styled.div`
 
         @keyframes ejectDiscoAnimation {
             0% {
-                left: 730px;
+                left: 670px;
             }
             100% {
                 transform: rotate(180deg);
-                transform-origin: inherit;
+                left: 70px;
             }
         }
     }
@@ -121,10 +123,9 @@ export const VinylDiscDiv = styled.div`
             
               @keyframes rotate {
                 0% {
-                    left: 730px;
+                    left: 670px;
                 }
                 100% {
-                   
                     transform: rotate(1turn);
                 }
             }
