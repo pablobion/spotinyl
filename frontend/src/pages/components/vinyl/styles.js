@@ -6,18 +6,10 @@ export const Container = styled.div`
   display: block;
   width: 250px;
   text-align: center;
-  border: 1px solid;
 
-
-  audio {
-    display: none;
-  }
 .vinyl {
   position: relative;
   display: inline-block;
-
-  
-
   width: 240px;
   height: 240px;
   border-radius: 50%;

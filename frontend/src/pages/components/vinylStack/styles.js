@@ -7,7 +7,6 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    
 `;
 
 
@@ -49,14 +48,13 @@ export const VinylDiscDiv = styled.div`
                 display: inline;
                 animation: MoveUpDisco 1.3s forwards;
                 z-index: -1;
-                //border: 1px solid;
             }
        
         @keyframes MoveUpDisco {
             0% {
             }
             100% {
-                transform: translateX(160px) rotate(360deg);
+                transform: translateX(160px) rotate(370deg);
             }
         }
     }

@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import {Container} from './styles.js'
 
 
-const VinylComponent = (props) => {
+const VinylComponent = ({customClass, image}) => {
     return (
-        <Container>
+        <Container className={customClass}>
             <div class="vinyl vinyl-1 paused">
                 <div class="grooves"></div>
                 <div class="light"></div>
                 <div class="light-alt"></div>
                 <div class="macaron">
-                    <img class="cover" width={100} src="http://trunkfunk.com/yaki-da/wp-content/uploads/Ian-Pooley-Chord-Memory-Remixes-Force-Inc.-Music-Works.jpg" alt=""/>
+                    <img class="cover" width={100} src={image} alt=""/>
                 </div>
             </div>
         </Container>
