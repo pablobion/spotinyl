@@ -7,8 +7,16 @@ import VinylStack from '../components/vinylStack/index.jsx'
 import TurnTables from '../components/turntables/index.jsx'
 import SearchAlbumComponent from '../components/searchAlbum/index.jsx'
 
+import { useVinylContext } from '../context/context.jsx'
+
+
+
 function Home() {
     let bearerToken = null;
+
+    const {currentVinyl, handleChangeStatusCurrentVinyl, setPlaying, playing, setPlayerSpotify, playerSpotify} = useVinylContext();
+    const [player, setPlayer] = useState(null);
+
     
 
     const setBearerTokenStorage = async (myParam) => {
@@ -23,18 +31,36 @@ function Home() {
       const urlParams = new URLSearchParams(window.location.search);
       const myParam = urlParams.get('token');
       setBearerTokenStorage(myParam)
+
+      const script = document.createElement("script");
+      script.src = "https://sdk.scdn.co/spotify-player.js";
+      script.async = true;
+  
+      document.body.appendChild(script);
+  
+      window.onSpotifyWebPlaybackSDKReady = () => {
+  
+          const player = new window.Spotify.Player({
+              name: 'vinyl player',
+              getOAuthToken: cb => { cb(myParam); },
+              volume: 0.02
+          });
+  
+          setPlayerSpotify(player);
+
+          player?.addListener('ready', ({ device_id }) => {
+            console.log('Ready with Device ID', device_id);
+        });
+    
+        player?.addListener('not_ready', ({ device_id }) => {
+            console.log('Device ID has gone offline', device_id);
+        });
+    
+      };
     }, []);
 
 
-    const fetchBack = async () => {
-      const response = await fetch('http://localhost:3000/albums', {
-        method: 'POST',
-        body: JSON.stringify({bearerToken}),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-    }
+
 
     return (
       <Main>

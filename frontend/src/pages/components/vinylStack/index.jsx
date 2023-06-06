@@ -13,11 +13,12 @@ const VinylStack = () => {
 
   const {currentVinyl, playing, handleChangeStatusCurrentVinyl, vinylList} = useVinylContext();
 
-  const handleSelectAlbum = (e, currentVinyl) => {
+  const handleSelectAlbum = (e, uri) => {
     const element = e.target;
+    console.log('ue gente', uri)
     return currentVinyl === element 
-      ? handleChangeStatusCurrentVinyl({element, action: 'vinylDown'}) 
-      : handleChangeStatusCurrentVinyl({element, action: 'vinylUp'});
+      ? handleChangeStatusCurrentVinyl({element, action: 'vinylDown', uri}) 
+      : handleChangeStatusCurrentVinyl({element, action: 'vinylUp', uri});
   };
 
   return (
@@ -26,7 +27,7 @@ const VinylStack = () => {
       {vinylList.map((vinyl, index) => {
         return (
           <VinylDiscDiv 
-            onClick={(e) => handleSelectAlbum(e, currentVinyl)}
+            onClick={(e) => handleSelectAlbum(e, vinyl.uri)}
             key={`${index}`} 
             bottom={index * 30}
             index={50 - index}
@@ -34,10 +35,7 @@ const VinylStack = () => {
             >
             <div className='vinylDisc'>
               <img src={vinyl?.image} />
-              
                 <VinylComponent customClass="disco" image={vinyl?.image} />
-
-              {/* <img className='disco' style={{ width: 400}} src={discoImage} onClick={() => alert('oie')}/> */}
             </div>
           </VinylDiscDiv>
         )

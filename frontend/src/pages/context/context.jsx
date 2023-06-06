@@ -1,5 +1,7 @@
 import React, { createContext, useState, useContext, useEffect, useRef } from "react";
 
+import sounds from '../../assets/sound.mp3';
+
 const vinylContext = createContext();
 
 export default function vinylProvider({ children }) {
@@ -7,16 +9,64 @@ export default function vinylProvider({ children }) {
     const [currentVinylStatus, setCurrentVinylStatus] = useState(null);
     const [playing, setPlaying ] = useState(false);
     const [vinylList, setVinylList] = useState([]);
+    const [playerSpotify, setPlayerSpotify] = useState(null);
+    const [audio] = useState(new Audio(sounds));
 
     const remClass = (element, classNames) => classNames.forEach(className => element.classList.remove(className));
 
-    const handleChangeStatusCurrentVinyl = ({element, action}) => {
+    useEffect(() => {
+            playerSpotify?.connect();
+            
+            
+    }, [playerSpotify]);
+
+
+    const playFirstTrackOfAlbum = async (uri) => {
+        const token = localStorage.getItem("bearerTokenSpotinyl");
+
+          const response = await fetch('https://api.spotify.com/v1/me/player/play', {
+            method: 'PUT',
+            body: JSON.stringify({
+                "context_uri": uri,
+              }),
+              headers: {
+                "authorization": `Bearer ${token}`,
+                'Content-Type': 'application/json',
+              },
+        })
+       
+          console.log(response, 'slc')
+      };
+
+      
+      
+      // Example usage:
+      const albumId = '"3ctW8o8ABBCNWWkdIvEGgV"';
+      
+
+    const handleChangeStatusCurrentVinyl = ({element, action, uri}) => {
+        console.log('vai se fuder cade', uri)
         const animation = {
             'vinylRotate': () => {
                 console.log('thunder')
                 currentVinyl.classList.add("vinylRotate");
                 // currentVinyl.classList.remove("vinylInsert");
                 // currentVinyl.classList.remove("vinylOpen");
+                if(playing){
+                    playerSpotify.pause(() => {
+                        console.log('Paused!');
+                      })
+                      audio.pause();
+                } else {
+                    playerSpotify.resume(() => {
+                        console.log('resume!');
+                      })
+                      audio.volume = 0.5;
+                      audio.play();
+                      console.log('tenho a uri?', uri)
+                      playFirstTrackOfAlbum(uri);
+                }
+               
             },
             'vinylInsertEject': () => {
                 if(currentVinyl){
@@ -47,6 +97,7 @@ export default function vinylProvider({ children }) {
             },
 
             'vinylUp': () => {
+                playFirstTrackOfAlbum()
                 if(currentVinylStatus === 'insert') return
                 if(currentVinyl){
                     currentVinyl.classList.add("vinylDown");
@@ -71,7 +122,7 @@ export default function vinylProvider({ children }) {
             },
         }
 
-        animation[action]();
+        animation[action](uri);
     }
 
     return (
@@ -84,7 +135,9 @@ export default function vinylProvider({ children }) {
                 playing, 
                 setPlaying,
                 vinylList, 
-                setVinylList
+                setVinylList,
+                playerSpotify, 
+                setPlayerSpotify
             }}
         >
             {children}
@@ -98,5 +151,5 @@ export function useVinylContext() {
 
     const { currentVinyl, setCurrentVinyl, currentVinylStatus, handleChangeStatusCurrentVinyl, playing, setPlaying, vinylList, setVinylList} = context;
 
-    return { currentVinyl, setCurrentVinyl, currentVinylStatus, handleChangeStatusCurrentVinyl, playing, setPlaying, vinylList, setVinylList};
+    return { ...context};
 }

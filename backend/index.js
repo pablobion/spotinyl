@@ -29,7 +29,13 @@ const baseUrlSpotify = 'https://accounts.spotify.com'
 
 app.get('/login', (req, res) => {
     const state = randomstring.generate(16);
-    const scope = 'user-read-private user-read-email';
+    const scope = "streaming \
+    user-read-email \
+    app-remote-control \
+    user-read-playback-state \
+    user-modify-playback-state \
+    user-read-currently-playing \
+    user-read-private"
 
     res.redirect(`${baseUrlSpotify}/authorize?` + querystring.stringify({
       response_type: 'code',
@@ -81,6 +87,26 @@ app.get('/spotify/callback', async(req, res) => {
   
 })
 
+app.post('/play', async (req, res) => {
+  const {bearerToken} = req.body;
+  const response = await axios({
+    method: 'PUT',
+    mode: 'cors',
+    url: `https://api.spotify.com/v1/me/player/play`,
+    headers: {
+      "authorization": `Bearer ${bearerToken}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      uris: ['spotify:track:7zt3bDTgxn03ZfV9xHqOs5'],
+    }),
+  });
+  console.log(response);
+
+  console.log('teste');
+
+})
+
 app.post('/albums', async (req, res) => {
   const {bearerToken, album} = req.body;
   try {
@@ -103,7 +129,8 @@ app.post('/albums', async (req, res) => {
         name: elem.name,
         image: elem.images[1].url,
         artist: elem.artists[0].name,
-        id: elem.id
+        id: elem.id,
+        uri: elem.uri
       }
     })
     res.json(albumList);

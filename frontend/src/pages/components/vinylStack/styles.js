@@ -43,7 +43,6 @@ export const VinylDiscDiv = styled.div`
     }  
 
     .vinylOpen {
-
         .disco {
                 display: inline;
                 animation: MoveUpDisco 1.3s forwards;
@@ -114,7 +113,7 @@ export const VinylDiscDiv = styled.div`
     .vinylRotate {
         .disco {
          
-            left: 730px;
+            left: 670px;
             ${props => props.playing && `
              animation: rotate 4s linear infinite;
             `}
