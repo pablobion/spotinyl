@@ -15,25 +15,24 @@ const VinylStack = () => {
 
   const handleSelectAlbum = (e, uri) => {
     const element = e.target;
-    console.log('ue gente', uri)
+
     return currentVinyl === element 
-      ? handleChangeStatusCurrentVinyl({element, action: 'vinylDown', uri}) 
-      : handleChangeStatusCurrentVinyl({element, action: 'vinylUp', uri});
+      ? handleChangeStatusCurrentVinyl({element, action: 'vinylDown'}) 
+      : handleChangeStatusCurrentVinyl({element, action: 'vinylUp'});
   };
 
   return (
     <Container>
-      <button onClick={() => console.log(vinylList)}>apesar de querer</button>
       {vinylList.map((vinyl, index) => {
         return (
           <VinylDiscDiv 
-            onClick={(e) => handleSelectAlbum(e, vinyl.uri)}
+            onClick={(e) => handleSelectAlbum(e, vinyl?.uri)}
             key={`${index}`} 
             bottom={index * 30}
             index={50 - index}
             playing={playing}
             >
-            <div className='vinylDisc'>
+            <div className='vinylDisc' value={vinyl?.uri}>
               <img src={vinyl?.image} />
                 <VinylComponent customClass="disco" image={vinyl?.image} />
             </div>

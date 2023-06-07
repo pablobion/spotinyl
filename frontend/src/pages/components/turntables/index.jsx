@@ -13,15 +13,7 @@ const TurnTables = () => {
     const {playing, setPlaying, handleChangeStatusCurrentVinyl, currentVinylStatus} = useVinylContext();
 
     const handlePlay = () => {
-        if(currentVinylStatus !== 'insert'){
-            setPlaying(true)
-            setTimeout(() => {
-                setPlaying(false)
-            }, 100);
-            return false;
-        }
         handleChangeStatusCurrentVinyl({action: 'vinylRotate'});
-        setPlaying(!playing)  
     }
 
     return (
