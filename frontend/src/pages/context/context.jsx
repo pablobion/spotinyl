@@ -17,6 +17,16 @@ export default function vinylProvider({ children }) {
         albumUri: ''
     })
 
+    // const [state, setState] = useState({});
+
+    // const handleChangeState = (name, value) => {
+    //     const obj = {
+    //         ...spotifyPlayerObject,
+    //         [name]: value
+    //     };
+    //     setState(obj)
+    // }
+
     const handleChangeSpotifyPlayerObject = (name, value) => {
         const obj = {
             ...spotifyPlayerObject,
@@ -36,19 +46,7 @@ export default function vinylProvider({ children }) {
     const playFirstTrackOfAlbum = async (uri) => {
         const token = localStorage.getItem("bearerTokenSpotinyl");
 
-        //   const response = await fetch('https://api.spotify.com/v1/me/player/play', {
-        //     method: 'PUT',
-        //     body: JSON.stringify({
-        //         "context_uri": uri,
-        //       }),
-        //     headers: {
-        //       'Authorization': 'Bearer ' + localStorage.getItem("bearerTokenSpotinyl"),
-        //       'Content-Type': 'application/json',
-        //     },
-        // })
-
-        
-        const response = await fetch('https://api.spotify.com/v1/me/player', {
+        const response = await fetch(`https://api.spotify.com/v1/me/player/play?device_id=${spotifyPlayerObject.deviceId}`, {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json',
@@ -57,17 +55,44 @@ export default function vinylProvider({ children }) {
             body: JSON.stringify({
               device_ids:[spotifyPlayerObject.deviceId],
               play: true,
+              context_uri: spotifyPlayerObject.albumUri,
+              "offset": {
+                "position": 5
+              },
+              "position_ms": 0
+             // context_uri: spotifyPlayerObject.albumUri,
             }),
           })
-          
-       
-          console.log(response, 'slc')
-      };
 
+          if (response.status === 204) {
+            console.log('Álbum reproduzido com sucesso!');
+          } else {
+            console.error('Ocorreu um erro ao reproduzir o álbum:', response.status);
+          }
+    };
+
+    const playAndPause =  async (mode) => {
+        const response = await fetch(`https://api.spotify.com/v1/me/player/${mode}?device_id=${spotifyPlayerObject.deviceId}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + localStorage.getItem("bearerTokenSpotinyl"),
+            },
+            body: JSON.stringify({
+              device_ids:[spotifyPlayerObject.deviceId],
+            }),
+          })
+
+          if (response.status === 204) {
+            console.log('Álbum reproduzido com sucesso!');
+          } else {
+            console.error('Ocorreu um erro ao reproduzir o álbum:', response.status);
+          }
+    };
       
 
-    const handleChangeStatusCurrentVinyl = ({element, action, uri}) => {
-
+    const handleChangeStatusCurrentVinyl = ({element, action, uri, porra}) => {
+        console.log(uri, porra)
         const animation = {
             'vinylRotate': () => {
                 console.log('thunder')
@@ -82,21 +107,19 @@ export default function vinylProvider({ children }) {
                 // currentVinyl.classList.remove("vinylOpen");
                 if(playing){
                     setPlaying(false);
-                    console.log('1')
-                    spotifyPlayerObject.player.pause(() => {
-                        console.log('Paused!');
-                      })
+                    console.log(spotifyPlayerObject.player);
                       audio.pause();
-                    
+                      playAndPause('pause');
+                   
                 } else {
-                    console.log('2.2')
+                    console.log('2.2', uri)
                     // spotifyPlayerObject.player.resume(() => {
                     //     console.log('resume!');
                     //   })
-                      //audio.volume = 0.5;
-                      //audio.play();
+                      audio.volume = 0.5;
+                      audio.play();
                       setPlaying(true);
-                    
+                     // playAndPause('play');
                       playFirstTrackOfAlbum(uri);
                 }
                

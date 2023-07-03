@@ -29,12 +29,24 @@ const baseUrlSpotify = 'https://accounts.spotify.com'
 
 app.get('/login', (req, res) => {
     const state = randomstring.generate(16);
-    const scope = "streaming \
-    user-read-email \
-    app-remote-control \
+    const scope = "ugc-image-upload \
+    user-read-recently-played \
+    user-top-read \
+    user-read-playback-position \
     user-read-playback-state \
     user-modify-playback-state \
     user-read-currently-playing \
+    app-remote-control \
+    streaming \
+    playlist-modify-public \
+    playlist-modify-private \
+    playlist-read-private \
+    playlist-read-collaborative \
+    user-follow-modify \
+    user-follow-read \
+    user-library-modify \
+    user-library-read \
+    user-read-email \
     user-read-private"
 
     res.redirect(`${baseUrlSpotify}/authorize?` + querystring.stringify({
@@ -130,7 +142,8 @@ app.post('/albums', async (req, res) => {
         image: elem.images[1].url,
         artist: elem.artists[0].name,
         id: elem.id,
-        uri: elem.uri
+        uri: elem.uri,
+        tracks: elem.tracks,
       }
     })
     res.json(albumList);

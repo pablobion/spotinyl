@@ -37,11 +37,10 @@ function Home() {
       document.body.appendChild(script);
   
       window.onSpotifyWebPlaybackSDKReady = () => {
-  
-          const player = new window.Spotify.Player({
-              name: 'vinyl player',
-              getOAuthToken: cb => { cb(myParam); },
-              volume: 0.02
+          const player = new Spotify.Player({
+            name: 'vinyl player',
+            getOAuthToken: (cb) => { cb(myParam); },
+            volume: 0.02
           });
   
           handleChangeSpotifyPlayerObject('player', player);
