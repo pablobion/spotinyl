@@ -89,7 +89,7 @@ app.get('/spotify/callback', async(req, res) => {
         //   access_token: response.data.access_token,
         //   status: 200
         // })
-         res.redirect(`${req.headers.referer}?token=${response.data.access_token}`);
+         res.redirect(`${req.headers.referer}?token=${response.data.access_token}&refresh_token=${response.data.refresh_token}`);
       }
       
     } catch(error){

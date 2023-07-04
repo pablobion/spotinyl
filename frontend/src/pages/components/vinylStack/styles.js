@@ -17,9 +17,18 @@ export const VinylDiscDiv = styled.div`
 
     &:hover { // Passar mouse na stack
         .vinylDisc {
+            
             &:not(.vinylUp) { // Faz o efeito de passar o mouse apenas nos que não tao up
-                transform: translateY(-100px) translateX(50px) rotate(360deg);
-                cursor: pointer;
+                
+                ${props => props.playing === false 
+                ? `
+                    transform: translateY(-100px) translateX(50px) rotate(360deg);
+                    cursor: pointer;
+                  ` 
+                : `
+                    cursor: not-allowed;
+                  `
+                }
             }
         }
     }
@@ -78,12 +87,15 @@ export const VinylDiscDiv = styled.div`
 
     .vinylInsert {
         .disco {
+           
             animation: insertDiscoAnimation 1s forwards;
+            
 
             @keyframes insertDiscoAnimation {
                 0% {
                     transform: rotate(-180deg);
-                    left: 70px;
+                    left: 70px
+                    ${props => props.playing === true && `left: 670px`}
                 }
                 100% {
                     left: 670px;
@@ -95,7 +107,7 @@ export const VinylDiscDiv = styled.div`
     .vinylEject {
         .disco {
             animation-name: ejectDiscoAnimation;
-            animation-duration: 1.5s;
+            animation-duration: 1.3s;
             animation-fill-mode: forwards;
         }
 
@@ -115,12 +127,12 @@ export const VinylDiscDiv = styled.div`
          
             left: 670px;
             ${props => props.playing && `
-             animation: rotate 4s linear infinite;
+                animation: rotate 4s linear infinite;
             `}
             
               @keyframes rotate {
                 0% {
-                    left: 670px;
+                
                 }
                 100% {
                     transform: rotate(1turn);

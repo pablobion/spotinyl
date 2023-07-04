@@ -3,7 +3,7 @@
   import {container, Logocontainer, Logo, Logotitle, Logosubtitle, Spotifyloginbutton } from './App.module.css';   
   import discoImage from '../../assets/disco.png'
 
-  const loginSpotify = () => {
+  const loginSpotify = async () => {
     window.location.href = "http://localhost:3000/login";
   }
   

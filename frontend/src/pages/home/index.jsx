@@ -17,18 +17,17 @@ function Home() {
     const {handleChangeSpotifyPlayerObject, spotifyPlayerObject} = useVinylContext();
 
 
-    const setBearerTokenStorage = async (myParam) => {
-      await localStorage.setItem("bearerTokenSpotinyl", myParam);
-      bearerToken = myParam;
-      // if (history.replaceState) {
-      //   history.replaceState(null, null, window.location.href.split('?')[0]);
-      // }
+    const setBearerTokenStorage = async (name, myParam) => {
+      await localStorage.setItem(name, myParam);
     }
   
     useEffect(() => {
       const urlParams = new URLSearchParams(window.location.search);
-      const myParam = urlParams.get('token');
-      setBearerTokenStorage(myParam)
+      const accessToken = urlParams.get('token');
+      const refreshToken = urlParams.get('refresh_token');
+
+      setBearerTokenStorage('bearerTokenSpotinyl', accessToken)
+      setBearerTokenStorage('refreshToken', refreshToken)
 
       const script = document.createElement("script");
       script.src = "https://sdk.scdn.co/spotify-player.js";
@@ -37,26 +36,23 @@ function Home() {
       document.body.appendChild(script);
   
       window.onSpotifyWebPlaybackSDKReady = () => {
-          const player = new Spotify.Player({
-            name: 'vinyl player',
-            getOAuthToken: (cb) => { cb(myParam); },
-            volume: 0.02
+  
+          const player = new window.Spotify.Player({
+              name: 'Web Playback SDK',
+              getOAuthToken: cb => { cb(accessToken); },
+              volume: 0.5
           });
   
-          handleChangeSpotifyPlayerObject('player', player);
-
-          player?.addListener('ready', async ({ device_id }) => {
-            console.log('Ready with Device ID', device_id);
-            handleChangeSpotifyPlayerObject('deviceId', device_id);
-
-
-        });
-    
-        player?.addListener('not_ready', ({ device_id }) => {
-            console.log('Device ID has gone offline', device_id);
-            handleChangeSpotifyPlayerObject('deviceId', null);
-        });
-    
+  
+          player.addListener('ready', ({ device_id }) => {
+              console.log('Ready with Device ID', device_id);
+          });
+  
+          player.addListener('not_ready', ({ device_id }) => {
+              console.log('Device ID has gone offline', device_id);
+          });
+  
+          player.connect();
       };
     }, []);
 

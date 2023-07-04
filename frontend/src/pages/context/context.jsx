@@ -38,9 +38,6 @@ export default function vinylProvider({ children }) {
 
     const remClass = (element, classNames) => classNames.forEach(className => element.classList.remove(className));
 
-    useEffect(() => {
-        spotifyPlayerObject?.player?.connect();
-    }, [spotifyPlayerObject.player]);
 
 
     const playFirstTrackOfAlbum = async (uri) => {
@@ -102,23 +99,26 @@ export default function vinylProvider({ children }) {
                     return false;
                 }
 
-                currentVinyl.classList.add("vinylRotate");
-                // currentVinyl.classList.remove("vinylInsert");
-                // currentVinyl.classList.remove("vinylOpen");
+                
+             
                 if(playing){
                     setPlaying(false);
                     console.log(spotifyPlayerObject.player);
                       audio.pause();
                       playAndPause('pause');
+
+                 
                    
                 } else {
+                    setPlaying(true);
                     console.log('2.2', uri)
+                    currentVinyl.classList.add("vinylRotate");
                     // spotifyPlayerObject.player.resume(() => {
                     //     console.log('resume!');
                     //   })
                       audio.volume = 0.5;
                       audio.play();
-                      setPlaying(true);
+                     
                      // playAndPause('play');
                       playFirstTrackOfAlbum(uri);
                 }
@@ -148,8 +148,7 @@ export default function vinylProvider({ children }) {
                     }, 1000);
             
                     setTimeout(() => {
-                        currentVinyl.classList.remove("vinylInsert");
-                        currentVinyl.classList.remove("vinylEject");
+                        remClass(currentVinyl, ["vinylInsert", "vinylEject"])
                         setCurrentVinylStatus(null);
                     }, 2600);
                 }
@@ -157,7 +156,13 @@ export default function vinylProvider({ children }) {
 
             'vinylUp': () => {
                 if (currentVinylStatus === 'insert') {
-                    return;
+                    currentVinyl.classList.add("vinylEject");
+                    setTimeout(() => {
+                        remClass(currentVinyl, ["vinylInsert", "vinylEject"])
+                        currentVinyl.classList.add("vinylDown");
+                        setTimeout(() => remClass(currentVinyl, ["vinylUp", "vinylOpen", "vinylDown"]), 600);
+                        setCurrentVinylStatus(null);
+                    }, 2600);
                 }
                 
                 handleChangeSpotifyPlayerObject('albumUri', uri);
