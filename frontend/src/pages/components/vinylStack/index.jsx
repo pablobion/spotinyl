@@ -15,10 +15,11 @@ const VinylStack = () => {
 
   const handleSelectAlbum = (e, uri) => {
     const element = e.target;
+    console.log(uri)
   
     return currentVinyl === element 
     ? handleChangeStatusCurrentVinyl({element, action: 'vinylDown'}) 
-    : !playing ? handleChangeStatusCurrentVinyl({element, action: 'vinylUp'}) : false;
+    : !playing ? handleChangeStatusCurrentVinyl({element, action: 'vinylUp', uri}) : false;
 
 
   };

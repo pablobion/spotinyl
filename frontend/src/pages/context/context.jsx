@@ -17,15 +17,10 @@ export default function vinylProvider({ children }) {
         albumUri: ''
     })
 
-    // const [state, setState] = useState({});
-
-    // const handleChangeState = (name, value) => {
-    //     const obj = {
-    //         ...spotifyPlayerObject,
-    //         [name]: value
-    //     };
-    //     setState(obj)
-    // }
+   useEffect(() => {
+    const mode  = playing ? 'play' : 'pause';
+    playAndPause(mode);
+   }, [playing]);
 
     const handleChangeSpotifyPlayerObject = (name, value) => {
         const obj = {
@@ -43,30 +38,54 @@ export default function vinylProvider({ children }) {
     const playFirstTrackOfAlbum = async (uri) => {
         const token = localStorage.getItem("bearerTokenSpotinyl");
 
-        const response = await fetch(`https://api.spotify.com/v1/me/player/play?device_id=${spotifyPlayerObject.deviceId}`, {
+        if(spotifyPlayerObject.deviceId === null) return alert('nao foi possivel encontrar device id')
+
+
+        const deviceId = spotifyPlayerObject.deviceId; // Substitua pelo seu ID de dispositivo
+        const albumUri = spotifyPlayerObject.albumUri; // Substitua pelo URI do álbum
+
+        const response = await fetch(`https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`, {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json',
               'Authorization': 'Bearer ' + localStorage.getItem("bearerTokenSpotinyl"),
             },
             body: JSON.stringify({
-              device_ids:[spotifyPlayerObject.deviceId],
-              play: true,
-              context_uri: spotifyPlayerObject.albumUri,
-              "offset": {
-                "position": 5
-              },
-              "position_ms": 0
-             // context_uri: spotifyPlayerObject.albumUri,
+                context_uri: albumUri,
             }),
           })
-
-          if (response.status === 204) {
+          const status = response.status;
+          if (status === 204 || status === 202) {
             console.log('Álbum reproduzido com sucesso!');
           } else {
             console.error('Ocorreu um erro ao reproduzir o álbum:', response.status);
           }
+
+
     };
+
+    const nextSong = async () => {
+        const token = localStorage.getItem("bearerTokenSpotinyl");
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token,
+            },
+        };
+
+        try {
+            const response = await fetch('https://api.spotify.com/v1/me/player/next', requestOptions);
+
+            if (response.status === 204) {
+            console.log('Avançou para a próxima música com sucesso.');
+            } else {
+            console.error('Erro ao avançar para a próxima música:', response.status);
+            }
+        } catch (error) {
+            console.error('Erro na solicitação:', error);
+        }
+    }
 
     const playAndPause =  async (mode) => {
         const response = await fetch(`https://api.spotify.com/v1/me/player/${mode}?device_id=${spotifyPlayerObject.deviceId}`, {
@@ -89,10 +108,8 @@ export default function vinylProvider({ children }) {
       
 
     const handleChangeStatusCurrentVinyl = ({element, action, uri, porra}) => {
-        console.log(uri, porra)
         const animation = {
             'vinylRotate': () => {
-                console.log('thunder')
                 if(currentVinylStatus !== 'insert'){
                     setPlaying(true)
                     setTimeout(() => { setPlaying(false)}, 50);
@@ -105,7 +122,6 @@ export default function vinylProvider({ children }) {
                     setPlaying(false);
                     console.log(spotifyPlayerObject.player);
                       audio.pause();
-                      playAndPause('pause');
 
                  
                    
@@ -164,7 +180,6 @@ export default function vinylProvider({ children }) {
                         setCurrentVinylStatus(null);
                     }, 2600);
                 }
-                
                 handleChangeSpotifyPlayerObject('albumUri', uri);
             
                 if (currentVinyl) {

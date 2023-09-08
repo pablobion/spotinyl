@@ -46,6 +46,7 @@ function Home() {
   
           player.addListener('ready', ({ device_id }) => {
               console.log('Ready with Device ID', device_id);
+              handleChangeSpotifyPlayerObject('deviceId' ,device_id)
           });
   
           player.addListener('not_ready', ({ device_id }) => {
