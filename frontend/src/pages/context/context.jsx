@@ -19,7 +19,9 @@ export default function vinylProvider({ children }) {
 
    useEffect(() => {
     const mode  = playing ? 'play' : 'pause';
-    playAndPause(mode);
+    if(spotifyPlayerObject.deviceId){
+        playAndPause(mode);
+    }
    }, [playing]);
 
     const handleChangeSpotifyPlayerObject = (name, value) => {
@@ -58,7 +60,7 @@ export default function vinylProvider({ children }) {
           if (status === 204 || status === 202) {
             console.log('Álbum reproduzido com sucesso!');
           } else {
-            console.error('Ocorreu um erro ao reproduzir o álbum:', response.status);
+            console.error('Ocorreu um erro primeir atrack do album:', response.status);
           }
 
 
@@ -102,7 +104,7 @@ export default function vinylProvider({ children }) {
           if (response.status === 204) {
             console.log('Álbum reproduzido com sucesso!');
           } else {
-            console.error('Ocorreu um erro ao reproduzir o álbum:', response.status);
+            console.error('Ocorreu um erro ao dar play/pause', response.status);
           }
     };
       
@@ -126,17 +128,19 @@ export default function vinylProvider({ children }) {
                  
                    
                 } else {
-                    setPlaying(true);
-                    console.log('2.2', uri)
-                    currentVinyl.classList.add("vinylRotate");
-                    // spotifyPlayerObject.player.resume(() => {
-                    //     console.log('resume!');
-                    //   })
-                      audio.volume = 0.5;
-                      audio.play();
-                     
-                     // playAndPause('play');
-                      playFirstTrackOfAlbum(uri);
+                    if(uri){
+                        setPlaying(true);
+                        console.log('2.2', uri)
+                        currentVinyl.classList.add("vinylRotate");
+                        // spotifyPlayerObject.player.resume(() => {
+                        //     console.log('resume!');
+                        //   })
+                          audio.volume = 0.5;
+                          audio.play();
+                         
+                         // playAndPause('play');
+                          playFirstTrackOfAlbum(uri);
+                    }
                 }
                
             },
