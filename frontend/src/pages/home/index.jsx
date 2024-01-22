@@ -37,7 +37,8 @@ function Home() {
           window.location.href = '/login';
         }
 
-        window.onSpotifyWebPlaybackSDKReady = () => {
+        try {
+          window.onSpotifyWebPlaybackSDKReady = () => {
             const player = new window.Spotify.Player({
                 name: "Web Playback SDK",
                 getOAuthToken: (cb) => {
@@ -63,6 +64,12 @@ function Home() {
 
             player.connect();
         };
+
+        } catch(error) {
+          alert('deu erro')
+        }
+
+      
     }, []);
 
     return (

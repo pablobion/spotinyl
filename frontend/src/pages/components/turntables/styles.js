@@ -23,18 +23,34 @@ export const TurnTablesDeisgn = styled.div`
 
     #left {
         display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        flex-direction: column;
+        align-items: flex-end;
+        width: 100%;
         height: 100%;
+
+        #left-master-buttons {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            flex-direction: column;
+            height: 100%;
+            margin-right: 100px;
+        }
     }
 
     #right {
         display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        flex-direction: column;
-        height: 100%;
-        width: 105px;
+            align-items: flex-end;
+            justify-content: space-between;
+            flex-direction: column;
+            height: 100%;
+
+        #anchor{
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            flex-direction: column;
+            height: 100%;
+            width: 105px;
+        }
     }
 `;
