@@ -61,10 +61,24 @@ export default function vinylProvider({ children }) {
         }
     };
     
-    const handleChangeVolume = async (volume) => {
+    const useDebounce = (callback, delay) => {
+        const timeoutRef = useRef(null);
+        
+        return (...args) => {
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+            }
+
+            timeoutRef.current = setTimeout(() => {
+                callback(...args);
+            }, delay);
+        };
+    };
+
+    const handleChangeVolumeRequest = async (volume) => {
         const token = localStorage.getItem("bearerTokenSpotinyl");
         const requestOptions = {
-            method: "POST",
+            method: "PUT",
             headers: {
                 "Content-Type": "application/json",
                 Authorization: "Bearer " + token,
@@ -72,15 +86,20 @@ export default function vinylProvider({ children }) {
         };
 
         try {
-            const response = await fetch(`https://api.spotify.com/v1/me/player/volume?volume_percent=${volume}`, requestOptions);
+            const response = await fetch(
+                `https://api.spotify.com/v1/me/player/volume?volume_percent=${volume}&device_id=${spotifyPlayerObject.deviceId}`, 
+                requestOptions
+            );
 
             if (response.status !== 204) {
-                console.error("Erro ao avançar para a próxima música:", response.status);
+                console.error("Erro ao alterar volume:", response.status);
             }
         } catch (error) {
             console.error("Erro na solicitação:", error);
         } 
-    }
+    };
+
+    const handleChangeVolume = useDebounce(handleChangeVolumeRequest, 300);
 
     const handleChangeMusicCurrentVinyl = async (mode) => {
         const token = localStorage.getItem("bearerTokenSpotinyl");
@@ -146,7 +165,7 @@ export default function vinylProvider({ children }) {
                     // spotifyPlayerObject.player.resume(() => {
                     //     console.log('resume!');
                     //   })
-                    audio.volume = 0.5;
+                    audio.volume = 1;
                     audio.play();
 
                     // playAndPause('play');

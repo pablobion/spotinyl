@@ -14,6 +14,16 @@ export const VinylDiscDiv = styled.div`
     position: absolute;
     bottom: ${props => props.bottom}px;
     z-index: ${props => props.index};
+    animation: organizeStack 1.3s forwards;
+
+    @keyframes organizeStack {
+        0% {
+            bottom: -${props => props.bottom}px;
+        }
+        100% {
+          
+        }
+    }
 
     &:hover { // Passar mouse na stack
         .vinylDisc {
@@ -144,6 +154,18 @@ export const VinylDiscDiv = styled.div`
 
     }
 
+    .startStack {
+        animation: startStack 1.3s forwards;
+
+        @keyframes startStack {
+            0% {
+            }
+            100% {
+                transform: translateX(160px) rotate(370deg);
+            }
+        }
+
+    }
   
 `;
 

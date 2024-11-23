@@ -24,6 +24,7 @@ const VinylStack = () => {
 
   };
 
+
   return (
     <Container>
       {vinylList.map((vinyl, index) => {

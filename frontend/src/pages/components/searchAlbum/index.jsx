@@ -12,6 +12,7 @@ const SearchAlbumComponent = () => {
     let bearerToken = null;
 
     const handleSearchAlbum =  async () => {
+        setVinylList([]);
         const response = await fetch('http://localhost:3000/albums', {
           method: 'POST',
           body: JSON.stringify({album, bearerToken: localStorage.getItem("bearerTokenSpotinyl")}),

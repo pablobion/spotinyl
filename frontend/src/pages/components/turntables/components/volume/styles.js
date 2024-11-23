@@ -3,12 +3,7 @@ import styled from 'styled-components'
 
 
 export const Container = styled.div`
-    #base{
-        border: 1px solid black;
-        width: 200px;
-        position: relative;
-        top: 380px;
-    }
+
 
 
 
@@ -20,9 +15,9 @@ export const Container = styled.div`
     max-width: 200px;
     width: 100%;
     position: relative;
-    top: 320px;
+    top: -15px;
+    left: 20px;
     height: 1px;
- 
 }
 
 
