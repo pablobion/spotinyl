@@ -2,6 +2,10 @@
 
 A stylish music player that combines the nostalgia of vinyl records with modern Spotify technology. This project offers a unique music playback experience, visually simulating vinyl record interactions while playing music through the Spotify API.
 
+<img  src="assets/gif.gif" alt="preview" width="800">
+
+
+
 ## ✨ Features
 
 - 🎧 Full Spotify API integration
@@ -71,4 +75,5 @@ Contributions are always welcome! Feel free to:
 3. Commit your changes (`git commit -m '\''Add some AmazingFeature'\''`)
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
+
 
