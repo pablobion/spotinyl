@@ -3,13 +3,14 @@ const randomstring = require("randomstring");
 const querystring = require('querystring');
 const cors = require('cors');
 const axios = require('axios');
+require('dotenv').config();
 const app = express();
 
 
 app.use(express.json());
 
 app.use(cors({
-    origin: ['http://localhost:5173', 'http://localhost:3000', 'https://accounts.spotify.com'],
+    origin: ['http://localhost:5173', 'http://localhost:3000', 'https://accounts.spotify.com', "*"],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'],
     credentials: true,
     allowedHeaders: ['Content-Type', 'Origin', 'X-Requested-With', 'Accept', 'x-client-key', 'x-client-token', 'x-client-secret', 'Authorization'],
@@ -21,9 +22,9 @@ app.get('/', (req, res) => {
     }
 );
 
-const client_id = 'cad77317d89d400ca93acc4e05199f35';
-const redirect_uri = 'http://localhost:3000/spotify/callback';
-const client_secret = 'd4297a91bfb84874ad9e4d3d4b62788b';
+const client_id = process.env.CLIENT_ID;
+const redirect_uri = process.env.REDIRECT_URI || 'http://localhost:3000/spotify/callback';
+const client_secret = process.env.CLIENT_SECRET;
 const baseUrlSpotify = 'https://accounts.spotify.com'
 
 
@@ -91,12 +92,12 @@ app.get('/spotify/callback', async(req, res) => {
         // })
          res.redirect(`${req.headers.referer}?token=${response.data.access_token}&refresh_token=${response.data.refresh_token}`);
       }
-      
+
     } catch(error){
       console.log(error);
     }
 
-  
+
 })
 
 app.post('/play', async (req, res) => {

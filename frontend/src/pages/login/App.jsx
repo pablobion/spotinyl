@@ -1,12 +1,12 @@
 
   import React from 'react';
-  import {container, Logocontainer, Logo, Logotitle, Logosubtitle, Spotifyloginbutton } from './App.module.css';   
+  import {container, Logocontainer, Logo, Logotitle, Logosubtitle, Spotifyloginbutton } from './App.module.css';
   import discoImage from '../../assets/disco.png'
 
   const loginSpotify = async () => {
-    window.location.href = "http://localhost:3000/login";
+    window.location.href = "https://spotinyl.onrender.com/login";
   }
-  
+
   function App() {
     return (
       <div className={container}>
@@ -23,6 +23,5 @@
       </div>
     );
   }
-  
+
   export default App;
-        

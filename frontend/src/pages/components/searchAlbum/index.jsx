@@ -13,7 +13,7 @@ const SearchAlbumComponent = () => {
 
     const handleSearchAlbum =  async () => {
         setVinylList([]);
-        const response = await fetch('http://localhost:3000/albums', {
+        const response = await fetch('https://spotinyl.onrender.com/albums', {
           method: 'POST',
           body: JSON.stringify({album, bearerToken: localStorage.getItem("bearerTokenSpotinyl")}),
           headers: {
