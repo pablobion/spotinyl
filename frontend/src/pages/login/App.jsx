@@ -4,7 +4,7 @@
   import discoImage from '../../assets/disco.png'
 
   const loginSpotify = async () => {
-    window.location.href = "https://spotinyl.onrender.com/login";
+    window.location.href = "https://spotinyl-1.onrender.com/login";
   }
 
   function App() {
