@@ -1,29 +1,14 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import { resolve } from 'path';
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  server: {
-    port: 5173,
-    historyApiFallback: true
-  },
   build: {
     outDir: 'dist',
-    rollupOptions: {
-      input: {
-        main: resolve(__dirname, 'index.html'),
-      },
-    },
   },
-  base: '/',
-  // Configuração específica para o Render SPA
-  preview: {
-    port: 5173,
-    strictPort: true,
-    host: true,
-    headers: {
-      "Cache-Control": "no-store"
-    }
-  }
-});
+  server: {
+    // apenas para dev, pode ignorar se já estiver ok
+    port: 3000
+  },
+  base: '/'
+})
