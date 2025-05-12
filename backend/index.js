@@ -10,7 +10,7 @@ const app = express();
 app.use(express.json());
 
 app.use(cors({
-    origin: ['http://spotinyl-1.onrender.com/', 'https://spotinyl-1.onrender.com/', 'http://localhost:5173', 'http://localhost:3000', 'https://accounts.spotify.com', "*"],
+    origin: ['https://spotinyl-1.onrender.com', 'http://spotinyl-1.onrender.com/', 'https://spotinyl-1.onrender.com/', 'http://localhost:5173', 'http://localhost:3000', 'https://accounts.spotify.com', "*"],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'],
     credentials: true,
     allowedHeaders: ['Content-Type', 'Origin', 'X-Requested-With', 'Accept', 'x-client-key', 'x-client-token', 'x-client-secret', 'Authorization'],
